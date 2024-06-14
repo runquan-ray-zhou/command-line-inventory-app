@@ -1,5 +1,5 @@
 # Features
-1. A user can create a new item.
+1. When the warehouse receive a new pallet of Frozen Products. A user can create a new item.
 2. A user can see a list of all the items.
 3. A user can see the details of one item.
 4. A user can delete an item.
