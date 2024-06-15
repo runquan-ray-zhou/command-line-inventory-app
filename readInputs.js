@@ -12,32 +12,33 @@ const inform = console.log
 function getIndex() {
     let products = readJSONFile("./data", "products.json")
     const productsView = index(products)
-    inform(`\nCurrent products in warehouse are:\n\n${productsView}`)
+    inform(`\nHAL 9001: Current products in warehouse are:\n\n${productsView}`)
 rl.close()
 }
 
 function createProduct() {
-    rl.question('\nWhat is the product name?\n\n', (productName) => {
-        rl.question('\nWhat is the product code?\n\n', (productCode) => {
-            rl.question('\nWhat is the product type?\n\n', (productType) => {
-                rl.question('\nWhat is the product brand?\n\n', (productBrand) => {
-                    rl.question('\nWho is the product vender?\n\n', (productVendor) => {
-                        rl.question('\nWhat is the product FDA status?\n\n', (productFDAStatus) => {
-                            rl.question('\nWhat is the product count?\n\n', (productCaseCount) => {
-                                rl.question('\nWhat is the product lb per case?\n\n', (productLbPerCase) => {
-                                    rl.question('\nWhat is the product price per lb?\n\n', (productCostPerLb) => {
-                                        rl.question('\nWhere is the product pallet location?\n\n', (productLocation) => {
-                                            rl.question('\nWho is the product purchaser/buyer?\n\n', (productBuyer) => {
-                                                rl.question('\nWhen was the product purchased?\n\n', (productPurchaseDate) => {
-                                                    rl.question('\nWhen was the product entry date?\n\n', (productEnterDate) => {
-                                                        rl.question('\nWhen does product expire?\n\n', (productExpireDate) => {
+    rl.question('\nHAL 9001: What is the product name?\n\n', (productName) => {
+        rl.question('\nHAL 9001: What is the product code?\n\n', (productCode) => {
+            rl.question('\nHAL 9001: What is the product type?\n\n', (productType) => {
+                rl.question('\nHAL 9001: What is the product brand?\n\n', (productBrand) => {
+                    rl.question('\nHAL 9001: Who is the product vender?\n\n', (productVendor) => {
+                        rl.question('\nHAL 9001: What is the product FDA status?\n\n', (productFDAStatus) => {
+                            rl.question('\nHAL 9001: What is the product count?\n\n', (productCaseCount) => {
+                                rl.question('\nHAL 9001: What is the product lb per case?\n\n', (productLbPerCase) => {
+                                    rl.question('\nHAL 9001: What is the product price per lb?\n\n', (productCostPerLb) => {
+                                        rl.question('\nHAL 9001: Where is the product pallet location?\n\n', (productLocation) => {
+                                            rl.question('\nHAL 9001: Who is the product purchaser/buyer?\n\n', (productBuyer) => {
+                                                rl.question('\nHAL 9001: When was the product purchased?\n\n', (productPurchaseDate) => {
+                                                    rl.question('\nHAL 9001: When was the product entry date?\n\n', (productEnterDate) => {
+                                                        rl.question('\nHAL 9001: When does product expire?\n\n', (productExpireDate) => {
+
     let products = readJSONFile("./data", "products.json")
     let writeToFile = false;
     let updateProducts = []
 
     const count = parseInt(productCaseCount)
     const pound = parseInt(productLbPerCase)
-    const cost = parseInt(productCostPerLb)
+    const cost = parseFloat(productCostPerLb)
 
     updateProducts = create(products, productName, productCode, productType, productBrand, productVendor, productFDAStatus, count, pound, cost, productLocation, productBuyer, productPurchaseDate, productEnterDate, productExpireDate)
 
@@ -46,7 +47,7 @@ function createProduct() {
     if (writeToFile) {
         writeJSONFile("./data", "products.json", updateProducts)
     }
-
+    inform(`\nHAL 9001: Your new product have been added to the warehouse\n`)
     rl.close()
                                                         })
                                                     })
@@ -82,7 +83,7 @@ function removeProduct() {
 }
 
 function getCommand() {
-    rl.question('HAL 9001: Hello, what is your command?\n\nPlease choose from the following:\n\nDisplay a list of products: Type - index\nAdd product to inventory:   Type - add\nDisplay product details:    Type - show\nRemove/delete product:      Type - remove\nUpdate product detail:      Type - update\nDisplay total amount:       Type - calculate\n\n', (command) => {
+    rl.question('HAL 9001: Hello, what is your command?\n\nHAL 9001: Please choose from the following:\n\nDisplay a list of products: Type - index\nAdd product to inventory:   Type - add\nDisplay product details:    Type - show\nRemove/delete product:      Type - remove\nUpdate product detail:      Type - update\nDisplay total amount:       Type - calculate\n\n', (command) => {
     switch (command) {
         case "index":
         getIndex();
@@ -100,7 +101,7 @@ function getCommand() {
         case "total":
         break;
         default:
-            inform("There was an error.")
+            inform("HAL 9001: There was an error.")
     }
 
     });
