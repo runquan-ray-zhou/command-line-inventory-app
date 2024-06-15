@@ -1,6 +1,9 @@
 const { nanoid } = require("nanoid")
+const inform = console.log
 
 function index(products) {
+    inform("\n")
+    inform(products)
     return products.map(product => product.id + " " + product.name).join("\n")
 }
 
@@ -27,6 +30,5 @@ function create(products, productName, productCode, productType, productBrand, p
     products.push(product)
     return products
 }
-const inform = console.log
 
 module.exports = { index, create }
