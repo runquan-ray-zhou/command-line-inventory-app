@@ -31,4 +31,9 @@ function create(products, productName, productCode, productType, productBrand, p
     return products
 }
 
-module.exports = { index, create }
+function show(products, productsId) {
+    const selectedProduct = products.find((product) => product.id === productsId)
+    return selectedProduct
+}
+
+module.exports = { index, create, show }

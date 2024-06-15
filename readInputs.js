@@ -1,4 +1,4 @@
-const { index, create, destroy } = require("./src/frozenProductsController")
+const { index, create, show, destroy } = require("./src/frozenProductsController")
 const { createInterface } = require ('node:readline')
 const { writeJSONFile, readJSONFile } = require("./src/helpers")
 
@@ -65,6 +65,19 @@ function createProduct() {
     })
 }
 
+function showProduct() {
+    let products = readJSONFile("./data", "products.json")
+    const productsView = index(products)
+    inform(`\nHAL 9001: Current products in warehouse are:\n\n${productsView}`)
+
+    rl.question("\nHAL 9001: Please type in product Id to display that product's details\n\n", (productId) => {
+        const singleProductsView = show(products, productId)
+        inform(singleProductsView)
+        rl.close()
+
+    })
+}
+
 function removeProduct() {
     rl.question('\nWhat is the product id?\n\n', (productName) => {
     let products = readJSONFile("./data", "products.json")
@@ -92,6 +105,7 @@ function getCommand() {
         createProduct()
         break;
         case "show":
+        showProduct()
         break;
         case "update":
         break;
