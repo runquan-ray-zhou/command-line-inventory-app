@@ -1,17 +1,17 @@
-const { index, create, show, destroy } = require("./src/frozenProductsController")
+const { index, create, show, destroy, edit } = require("./src/frozenProductsController")
 const { createInterface } = require ('node:readline')
 const { writeJSONFile, readJSONFile } = require("./src/helpers")
+
+const inform = console.log
+const products = readJSONFile("./data", "products.json")
+const productsView = index(products)
 
 const rl = createInterface({
     input: process.stdin,
     output: process.stdout
   });
 
-const inform = console.log
-
 function getIndex() {
-    let products = readJSONFile("./data", "products.json")
-    const productsView = index(products)
     inform(`\nHAL 9001: Current products in warehouse are:\n\n${productsView}`)
 rl.close()
 }
@@ -32,7 +32,6 @@ function createProduct() {
                                                     rl.question('\nHAL 9001: When was the product entry date?\n\n', (productEnterDate) => {
                                                         rl.question('\nHAL 9001: When does product expire?\n\n', (productExpireDate) => {
 
-    let products = readJSONFile("./data", "products.json")
     let writeToFile = false;
     let updateProducts = []
 
@@ -66,8 +65,6 @@ function createProduct() {
 }
 
 function showProduct() {
-    let products = readJSONFile("./data", "products.json")
-    const productsView = index(products)
     inform(`\nHAL 9001: Current products in warehouse are:\n\n${productsView}`)
 
     rl.question("\nHAL 9001: Please type in product Id to display that product's details\n\n", (productId) => {
@@ -79,22 +76,42 @@ function showProduct() {
 }
 
 function removeProduct() {
-    let products = readJSONFile("./data", "products.json")
-    const productsView = index(products)
     inform(`\nHAL 9001: Current products in warehouse are:\n\n${productsView}`)
 
-    rl.question('\nHAL 9001: What is the name of the product you want to remove?\n\n', (productName) => {
+    rl.question('\nHAL 9001: What is the id of the product you want to remove?\n\n', (productID) => {
     let writeToFile = false;
     let updateProducts = []
 
-    updateProducts = destroy(products, productName)
+    updateProducts = destroy(products, productID)
     writeToFile = true;
 
     if (writeToFile) {
         writeJSONFile("./data", "products.json", updateProducts)
     }
-    rl.close()
-})
+        rl.close()
+    })
+}
+
+function updateProduct() {
+    inform(`\nHAL 9001: Current products in warehouse are:\n\n${productsView}`)
+
+    rl.question('\nHAL 9001: What is the id of the product you want to update?\n\n', (productID) => {
+        rl.question('\nHAL 9001: Please choose from following, which value you want update:\n\nname\ncode\ntype\nbrand\nvendor\nfdaStatus\ncaseCount\nlbPerCase\ncostPerLb\nlocation\nbuyer\npurchaseDate\nenterDate\nexpireDate\n\n', (productKEY) => {
+            rl.question('\nHAL 9001: What is the new updated value?\n\n', (productNewValue) => {
+
+        let writeToFile = false;
+        let updateProducts = []
+    
+        updateProducts = edit(products, productID, productKEY, productNewValue)
+        writeToFile = true;
+    
+        if (writeToFile) {
+            writeJSONFile("./data", "products.json", updateProducts)
+        }
+        rl.close()
+            })
+        })
+    })
 }
 
 function getCommand() {
@@ -110,6 +127,7 @@ function getCommand() {
         showProduct()
         break;
         case "update":
+        updateProduct()
         break;
         case "destroy":
         removeProduct()

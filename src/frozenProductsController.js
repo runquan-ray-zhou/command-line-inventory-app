@@ -36,17 +36,29 @@ function show(products, productId) {
     return selectedProduct
 }
 
-function destroy(products, productName) {
-    const index = products.findIndex(product => product.name === productName)
+function destroy(products, productID) {
+    const index = products.findIndex(product => product.id === productID)
     if (index > -1) {
         products.splice(index, 1)
         inform(`\nHAL 9001: Your selected product have been successfully removed from the warehouse\n`)
         return products
     } else {
-        inform("\nHAL 9001: Your product was not found. No action taken")
+        inform("\nHAL 9001: Your product was not found. No action taken\n")
         return products
     }
 }
 
+function edit(products, productID, productKEY, productNewValue) {
+    const index = products.findIndex(product => product.id === productID);
+    if (index > -1) {
+    products[index][productKEY] = productNewValue;
+      inform("\nHAL 9001: Product successfully updated\n");
+      return products;
+    } else {
+      inform("\nHAL 9001: Product not found. No action taken\n");
+      return products;
+    }
+  }
 
-module.exports = { index, create, show, destroy}
+
+module.exports = { index, create, show, destroy, edit}
