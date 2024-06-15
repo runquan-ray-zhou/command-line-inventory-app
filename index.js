@@ -8,16 +8,16 @@ const inform = console.log
 function run() {
     const action = process.argv[2];
     const productName = process.argv[3];
-    let pallets = readJSONFile("./data", "pallets.json")
+    let products = readJSONFile("./data", "products.json")
     let writeToFile = false;
-    let updatePallets = []
+    let updateProducts = []
     switch (action) {
       case "index":
-        const palletsView = index(pallets)
-        inform(palletsView);
+        const productsView = index(products)
+        inform(productsView);
         break;
       case "create":
-        updatePallets = create(pallets, productName)
+        updateProducts = create(products, productName)
         writeToFile = true;
         break;
       case "show":
@@ -36,7 +36,7 @@ function run() {
         inform("There was an error.");
     }
     if (writeToFile) {
-        writeJSONFile("./data", "pallets.json", updatePallets)
+        writeJSONFile("./data", "products.json", updateProducts)
     }
   }
   run();
