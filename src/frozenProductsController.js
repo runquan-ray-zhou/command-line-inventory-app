@@ -31,9 +31,22 @@ function create(products, productName, productCode, productType, productBrand, p
     return products
 }
 
-function show(products, productsId) {
-    const selectedProduct = products.find((product) => product.id === productsId)
+function show(products, productId) {
+    const selectedProduct = products.find(product => product.id === productId)
     return selectedProduct
 }
 
-module.exports = { index, create, show }
+function destroy(products, productName) {
+    const index = products.findIndex(product => product.name === productName)
+    if (index > -1) {
+        products.splice(index, 1)
+        inform(`\nHAL 9001: Your selected product have been successfully removed from the warehouse\n`)
+        return products
+    } else {
+        inform("\nHAL 9001: Your product was not found. No action taken")
+        return products
+    }
+}
+
+
+module.exports = { index, create, show, destroy}

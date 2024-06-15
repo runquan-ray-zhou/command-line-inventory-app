@@ -79,8 +79,11 @@ function showProduct() {
 }
 
 function removeProduct() {
-    rl.question('\nWhat is the product id?\n\n', (productName) => {
     let products = readJSONFile("./data", "products.json")
+    const productsView = index(products)
+    inform(`\nHAL 9001: Current products in warehouse are:\n\n${productsView}`)
+
+    rl.question('\nHAL 9001: What is the name of the product you want to remove?\n\n', (productName) => {
     let writeToFile = false;
     let updateProducts = []
 
@@ -90,13 +93,12 @@ function removeProduct() {
     if (writeToFile) {
         writeJSONFile("./data", "products.json", updateProducts)
     }
-
     rl.close()
 })
 }
 
 function getCommand() {
-    rl.question('HAL 9001: Hello, what is your command?\n\nHAL 9001: Please choose from the following:\n\nDisplay a list of products: Type - index\nAdd product to inventory:   Type - add\nDisplay product details:    Type - show\nRemove/delete product:      Type - remove\nUpdate product detail:      Type - update\nDisplay total amount:       Type - calculate\n\n', (command) => {
+    rl.question('HAL 9001: Hello, what is your command?\n\nHAL 9001: Please choose from the following:\n\nDisplay a list of products: Type - index\nAdd product to inventory:   Type - add\nDisplay product details:    Type - show\nRemove/delete product:      Type - destroy\nUpdate product detail:      Type - update\nDisplay total amount:       Type - calculate\n\n', (command) => {
     switch (command) {
         case "index":
         getIndex();
