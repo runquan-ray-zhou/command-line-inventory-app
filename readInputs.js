@@ -7,6 +7,7 @@ const products = readJSONFile("./data", "products.json")
 const readiedProducts = readJSONFile("./data", "readied.json")
 const productsView = index(products)
 const readiedView = index(readiedProducts)
+const sampleProduct = readJSONFile("./data", "products.json")
 
 const rl = createInterface({
     input: process.stdin,
@@ -14,7 +15,7 @@ const rl = createInterface({
   });
 
 function getCommand() {
-    rl.question('HAL 9001: Hello, what is your command?\n\nHAL 9001: Please choose from the following:\n\nWant to display inventory products? Please Type - index\nWant to add product to inventory?   Please Type - add\nWant to display product details?    Please Type - show\nWant to remove/delete product?      Please Type - remove\nWant to update product detail?      Please Type - update\nWant to ready for delivery/pickup?  Please Type - ready\nWant to display readied products?   Please Type - readied\nWant total net worth of products?   Please Type - total\n\n', (command) => {
+    rl.question('HAL 9001: Hello, what is your command?\n\nHAL 9001: Please choose from the following:\n\nWant to display inventory products? Please Type - index\nWant to add product to inventory?   Please Type - add\nWant to display product details?    Please Type - show\nWant to remove/delete product?      Please Type - remove\nWant to update product detail?      Please Type - update\nWant to ready for delivery/pickup?  Please Type - ready\nWant to display readied products?   Please Type - readied\nWant to clear readied products?     Please Type - clear\nWant total net worth of products?   Please Type - total\n\n', (command) => {
     switch (command) {
         case "index":
         getIndex();
@@ -37,6 +38,9 @@ function getCommand() {
         case "readied":
         getReadied()
         break;
+        case "clear":
+        clearReadied()
+        break;
         case "total":
         getTotal()
         break;
@@ -52,6 +56,8 @@ rl.close()
 }
 
 function createProduct() {
+    inform(sampleProduct[0])
+    inform("\nHAL 9001: Use the above for reference")
     rl.question('\nHAL 9001: What is the product name?\n\n', (productName) => {
         rl.question('\nHAL 9001: What is the product code?\n\n', (productCode) => {
             rl.question('\nHAL 9001: What is the product type?\n\n', (productType) => {
@@ -176,6 +182,19 @@ function readyProduct() {
 
 function getReadied() {
     inform(`\nHAL 9001: Current products being readied are:\n\n${readiedView}`)
+rl.close()
+}
+
+function clearReadied() {
+    
+    let readyProducts = []
+    let writeToFile = true;
+
+    if (writeToFile) {
+        writeJSONFile("./data", "readied.json", readyProducts)
+    }
+
+    inform(`\nHAL 9001: Current readied products have been cleared:\n\n[]`)
 rl.close()
 }
 
