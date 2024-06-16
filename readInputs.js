@@ -6,6 +6,7 @@ const inform = console.log
 const products = readJSONFile("./data", "products.json")
 const readiedProducts = readJSONFile("./data", "readied.json")
 const productsView = index(products)
+const readiedView = index(readiedProducts)
 
 const rl = createInterface({
     input: process.stdin,
@@ -13,7 +14,7 @@ const rl = createInterface({
   });
 
 function getCommand() {
-    rl.question('HAL 9001: Hello, what is your command?\n\nHAL 9001: Please choose from the following:\n\nWant to display inventory products? Please Type - index\nWant to add product to inventory?   Please Type - add\nWant to display product details?    Please Type - show\nWant to remove/delete product?      Please Type - remove\nWant to update product detail?      Please Type - update\nWant to ready for delivery/pickup?  Please Type - ready\n\n', (command) => {
+    rl.question('HAL 9001: Hello, what is your command?\n\nHAL 9001: Please choose from the following:\n\nWant to display inventory products? Please Type - index\nWant to add product to inventory?   Please Type - add\nWant to display product details?    Please Type - show\nWant to remove/delete product?      Please Type - remove\nWant to update product detail?      Please Type - update\nWant to ready for delivery/pickup?  Please Type - ready\nWant to display readied products?   Please Type - readied\n\n', (command) => {
     switch (command) {
         case "index":
         getIndex();
@@ -32,6 +33,9 @@ function getCommand() {
         break;
         case "ready":
         readyProduct()
+        break;
+        case "readied":
+        getReadied()
         break;
         default:
             inform("HAL 9001: There was an error.")
@@ -166,6 +170,11 @@ function readyProduct() {
         inform(`\nHAL 9001: Your product is now being readied for delivery or pickup.\n`)
         rl.close()
     })
+}
+
+function getReadied() {
+    inform(`\nHAL 9001: Current products being readied are:\n\n${readiedView}`)
+rl.close()
 }
 
   module.exports = { getCommand }
