@@ -72,5 +72,9 @@ function ready(products, readiedProducts, productID) {
     
 }
 
+function total(products) {
+    return products.reduce((a, b) => a + b.totalCost, 0)
+}
 
-module.exports = { index, create, show, remove, edit, ready}
+
+module.exports = { index, create, show, remove, edit, ready, total }

@@ -1,4 +1,4 @@
-const { index, create, show, remove, edit, ready } = require("./src/frozenProductsController")
+const { index, create, show, remove, edit, ready, total } = require("./src/frozenProductsController")
 const { createInterface } = require ('node:readline')
 const { writeJSONFile, readJSONFile } = require("./src/helpers")
 
@@ -14,7 +14,7 @@ const rl = createInterface({
   });
 
 function getCommand() {
-    rl.question('HAL 9001: Hello, what is your command?\n\nHAL 9001: Please choose from the following:\n\nWant to display inventory products? Please Type - index\nWant to add product to inventory?   Please Type - add\nWant to display product details?    Please Type - show\nWant to remove/delete product?      Please Type - remove\nWant to update product detail?      Please Type - update\nWant to ready for delivery/pickup?  Please Type - ready\nWant to display readied products?   Please Type - readied\n\n', (command) => {
+    rl.question('HAL 9001: Hello, what is your command?\n\nHAL 9001: Please choose from the following:\n\nWant to display inventory products? Please Type - index\nWant to add product to inventory?   Please Type - add\nWant to display product details?    Please Type - show\nWant to remove/delete product?      Please Type - remove\nWant to update product detail?      Please Type - update\nWant to ready for delivery/pickup?  Please Type - ready\nWant to display readied products?   Please Type - readied\nWant total net worth of products?   Please Type - total\n\n', (command) => {
     switch (command) {
         case "index":
         getIndex();
@@ -36,6 +36,9 @@ function getCommand() {
         break;
         case "readied":
         getReadied()
+        break;
+        case "total":
+        getTotal()
         break;
         default:
             inform("HAL 9001: There was an error.")
@@ -173,6 +176,12 @@ function readyProduct() {
 
 function getReadied() {
     inform(`\nHAL 9001: Current products being readied are:\n\n${readiedView}`)
+rl.close()
+}
+
+function getTotal() {
+    let totalNetWorth = total(products)
+    inform(`\nHAL 9001: Current total net worth of all products in inventory is: $${totalNetWorth}.00`)
 rl.close()
 }
 
