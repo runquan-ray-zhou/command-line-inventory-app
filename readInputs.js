@@ -1,15 +1,43 @@
-const { index, create, show, destroy, edit } = require("./src/frozenProductsController")
+const { index, create, show, remove, edit, ready } = require("./src/frozenProductsController")
 const { createInterface } = require ('node:readline')
 const { writeJSONFile, readJSONFile } = require("./src/helpers")
 
 const inform = console.log
 const products = readJSONFile("./data", "products.json")
+const readiedProducts = readJSONFile("./data", "readied.json")
 const productsView = index(products)
 
 const rl = createInterface({
     input: process.stdin,
     output: process.stdout
   });
+
+function getCommand() {
+    rl.question('HAL 9001: Hello, what is your command?\n\nHAL 9001: Please choose from the following:\n\nWant to display inventory products? Please Type - index\nWant to add product to inventory?   Please Type - add\nWant to display product details?    Please Type - show\nWant to remove/delete product?      Please Type - remove\nWant to update product detail?      Please Type - update\nWant to ready for delivery/pickup?  Please Type - ready\n\n', (command) => {
+    switch (command) {
+        case "index":
+        getIndex();
+        break;
+        case "add":
+        createProduct()
+        break;
+        case "show":
+        showProduct()
+        break;
+        case "update":
+        updateProduct()
+        break;
+        case "remove":
+        removeProduct()
+        break;
+        case "ready":
+        readyProduct()
+        break;
+        default:
+            inform("HAL 9001: There was an error.")
+        }
+    });
+}
 
 function getIndex() {
     inform(`\nHAL 9001: Current products in warehouse are:\n\n${productsView}`)
@@ -46,7 +74,9 @@ function createProduct() {
     if (writeToFile) {
         writeJSONFile("./data", "products.json", updateProducts)
     }
+
     inform(`\nHAL 9001: Your new product have been added to the warehouse\n`)
+    
     rl.close()
                                                         })
                                                     })
@@ -82,7 +112,7 @@ function removeProduct() {
     let writeToFile = false;
     let updateProducts = []
 
-    updateProducts = destroy(products, productID)
+    updateProducts = remove(products, productID)
     writeToFile = true;
 
     if (writeToFile) {
@@ -114,31 +144,28 @@ function updateProduct() {
     })
 }
 
-function getCommand() {
-    rl.question('HAL 9001: Hello, what is your command?\n\nHAL 9001: Please choose from the following:\n\nDisplay a list of products: Type - index\nAdd product to inventory:   Type - add\nDisplay product details:    Type - show\nRemove/delete product:      Type - destroy\nUpdate product detail:      Type - update\nDisplay total amount:       Type - calculate\n\n', (command) => {
-    switch (command) {
-        case "index":
-        getIndex();
-        break;
-        case "add":
-        createProduct()
-        break;
-        case "show":
-        showProduct()
-        break;
-        case "update":
-        updateProduct()
-        break;
-        case "destroy":
-        removeProduct()
-        break;
-        case "total":
-        break;
-        default:
-            inform("HAL 9001: There was an error.")
-    }
+function readyProduct() {
+    inform(`\nHAL 9001: Current products in warehouse are:\n\n${productsView}`)
+    rl.question('\nHAL 9001: What is the id of the product you want to ready for delivery or pickup?\n\n', (productID) => {
 
-    });
-  }
+        let writeToFile = false;
+        let updateProducts = []
+        let readyProducts = []
+    
+
+        readyProducts = ready(products, readiedProducts, productID)
+        updateProducts = remove(products, productID)
+        writeToFile = true;
+    
+        if (writeToFile) {
+            writeJSONFile("./data", "products.json", updateProducts)
+        }
+        if (writeToFile) {
+            writeJSONFile("./data", "readied.json", readyProducts)
+        }
+        inform(`\nHAL 9001: Your product is now being readied for delivery or pickup.\n`)
+        rl.close()
+    })
+}
 
   module.exports = { getCommand }

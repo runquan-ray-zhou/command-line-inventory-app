@@ -3,7 +3,6 @@ const inform = console.log
 
 function index(products) {
     inform("\n")
-    inform(products)
     return products.map(product => product.id + " " + product.name).join("\n")
 }
 
@@ -36,7 +35,7 @@ function show(products, productId) {
     return selectedProduct
 }
 
-function destroy(products, productID) {
+function remove(products, productID) {
     const index = products.findIndex(product => product.id === productID)
     if (index > -1) {
         products.splice(index, 1)
@@ -60,5 +59,18 @@ function edit(products, productID, productKEY, productNewValue) {
     }
   }
 
+function ready(products, readiedProducts, productID) {
+    const index = products.findIndex(product => product.id === productID)
+    if (index > -1) {
+        readiedProducts.push(products[index])
+        inform(`\nHAL 9001: Your selected product have been successfully moved to ready\n`)
+        return readiedProducts
+    } else {
+        inform("\nHAL 9001: Your product was not found. No action taken\n")
+        return readiedProducts
+    }
+    
+}
 
-module.exports = { index, create, show, destroy, edit}
+
+module.exports = { index, create, show, remove, edit, ready}
