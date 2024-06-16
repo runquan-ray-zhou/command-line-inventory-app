@@ -112,7 +112,11 @@ function showProduct() {
 
     rl.question("\nHAL 9001: Please type in product Id to display that product's details\n\n", (productId) => {
         const singleProductsView = show(products, productId)
-        inform(singleProductsView)
+        if (!singleProductsView) {
+            inform("\nHAL 9001: Product does not exist in Inventory")
+        } else {
+            inform(singleProductsView)
+        }
         rl.close()
 
     })
