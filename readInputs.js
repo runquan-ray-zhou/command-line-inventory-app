@@ -44,7 +44,7 @@ function getCommand() {
 }
 
 function getIndex() {
-    inform(`\nHAL 9001: Current products in warehouse are:\n\n${productsView}`)
+    inform(`\nHAL 9001: Current products in inventory are:\n\n${productsView}`)
 rl.close()
 }
 
@@ -155,7 +155,6 @@ function readyProduct() {
         let writeToFile = false;
         let updateProducts = []
         let readyProducts = []
-    
 
         readyProducts = ready(products, readiedProducts, productID)
         updateProducts = remove(products, productID)

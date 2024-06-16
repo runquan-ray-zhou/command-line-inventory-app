@@ -3,7 +3,7 @@ const inform = console.log
 
 function index(products) {
     inform("\n")
-    return products.map(product => product.id + " " + product.name).join("\n")
+    return products.map((product) => "Id: " + product.id + " Product Name: " + product.name + " Total Case: " + product.caseCount).join("\n")
 }
 
 function create(products, productName, productCode, productType, productBrand, productVendor, productFDAStatus, productCaseCount, productLbPerCase, productCostPerLb, productLocation, productBuyer, productPurchaseDate, productEnterDate, productExpireDate) {
