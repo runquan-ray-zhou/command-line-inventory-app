@@ -1,10 +1,43 @@
-# Features
-1. When the warehouse receive a new pallet of Frozen Products. A user can create a new item.
-2. A user can see a list of all the items.
-3. A user can see the details of one item.
-4. A user can delete an item.
-5. A user can update an item.
-6. When a user performs an action like creating or deleting an item, the data file is updated correctly. If the JSON is malformed, there is some logic to prevent writing to the file and thus corrupting the data file.
-7. When a user creates an item a unique id is assigned to the new item.
-8. Add a cart function where a user can add items to the shopping cart and see the total price and total number of each item
-9. Add a cancel cart function that empties the shopping cart.
+# Command-Line-Inventory-App
+
+## Description
+
+- I am building a fully functional inventory app that includes both front and back end functionality, and this command-line-inventory-app is a dry run of what kind of user interaction and functionality the react app will need. 
+- I am building the react inventory app to help users that need better control of their inventory in a freezer warehouse.
+- There are many inventory control programs and app out there.  My version is just another option out there for businesses.
+- For the command-line-inventory-app, I learn to write functions and console log the response based on the user input.  This is very important when I build the back end to my React Inventory App
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+
+## Installation
+
+To install this app, fork and clone to your local machine and type the following in terminal to install all dependencies.
+
+```
+npm i
+```
+
+## Usage
+
+To begin interaction with app, type the following in the terminal.
+
+```
+npm run start
+```
+
+You will be greeted to HAL 9001, the companion to this command-line app.  Just follow the prompts to use the different functionalities provided by the app.  The following is an screenshot of all the prompts.
+
+![commands](assets/commands.png)
+
+
+## Badges
+
+![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
+
+
+## Features
+
+This app uses the node built-in <a href="https://nodejs.org/api/readline.html">Readline</a> and <a href="https://nodejs.org/api/fs.html">File system</a> packages, and uses the <a href="https://www.npmjs.com/package/nanoid">nanoid version 3</a> package to generate random ids.
