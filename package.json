@@ -9,7 +9,7 @@
   "keywords": [],
   "author": "Runquan (Ray) Zhou",
   "license": "ISC",
-  "description": "",
+  "description": "This is a command line inventory app build with node.js",
   "dependencies": {
     "nanoid": "^3.3.7"
   }
